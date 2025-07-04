@@ -1,0 +1,758 @@
+/* --- Global Styles --- */
+:root {
+    --primary-blue: #348af0; /* Main blue for headings, buttons */
+    --secondary-blue: #66a3eb; /* Lighter blue for progress bar */
+    --text-dark: #333333;
+    --text-medium: #666666;
+    --text-light: #aaaaaa;
+    --bg-light: #f4f7f6;
+    --bg-white: #ffffff;
+    --border-light: #e0e0e0;
+    --border-dark: #cccccc;
+    --accent-gray: #f0f0f0; /* For chips, hover states */
+    --success-green: #2ecc71;
+    --warning-orange: #f39c12;
+    --danger-red: #e74c3c;
+
+    --font-dm-sans: "DM Sans", sans-serif;
+}
+
+body {
+    font-family: var(--font-dm-sans);
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Header --- */
+.app-header {
+    background-color: var(--bg-white);
+    padding: 25px 30px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.app-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin: 0;
+    display: inline-block; /* To align version label */
+}
+
+.app-header .version-label {
+    font-size: 0.75em;
+    vertical-align: super;
+    font-weight: 400;
+    color: var(--text-medium);
+    margin-left: 5px;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+}
+
+/* --- Main Container --- */
+.container {
+    max-width: 900px; /* Slightly narrower than previous main */
+    margin: 0px auto 40px auto; /* Adjust top margin for header */
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* --- View Management --- */
+.view {
+    display: none;
+    padding: 20px 0; /* Vertical padding */
+}
+
+.active-view {
+    display: block;
+}
+
+.hidden-view {
+    display: none;
+}
+
+.empty-state-message {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    text-align: left;
+    margin: 20px 0;
+}
+
+/* --- Buttons --- */
+.primary-button {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px; /* Slightly more rounded */
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.primary-button:hover {
+    background-color: #2a7ae8; /* Darker blue */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.primary-button.create-button {
+    width: 100%; /* Full width for dashboard create film button */
+    margin-top: 30px;
+}
+
+.primary-button.add-scene-btn-film-level {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-light);
+    transition: color 0.2s ease;
+}
+
+.icon-button:hover {
+    color: var(--text-medium);
+}
+
+.icon-button.delete-button:hover {
+    color: var(--danger-red);
+}
+
+/* --- Dashboard View --- */
+.dashboard-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.dashboard-header h2 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+}
+
+.film-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.film-chip {
+    background-color: var(--accent-gray);
+    color: var(--text-dark);
+    padding: 10px 20px;
+    border-radius: 20px; /* Pill shape */
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    border: 1px solid var(--border-light);
+}
+
+.film-chip:hover {
+    background-color: #e6e6e6; /* Slightly darker gray */
+    transform: translateY(-2px);
+}
+
+.film-chip.active {
+    background-color: var(--primary-blue);
+    color: white;
+    border-color: var(--primary-blue);
+}
+
+/* --- Film Detail View --- */
+.film-detail-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.film-detail-header .top-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.film-detail-header .back-button {
+    background: none;
+    border: none;
+    color: var(--text-medium);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.film-detail-header .back-button:hover {
+    color: var(--primary-blue);
+}
+
+.film-detail-header .back-button i {
+    font-size: 0.9em;
+}
+
+.film-detail-header h2#filmDetailTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin: 0;
+}
+
+.progress-section {
+    margin-top: 15px;
+}
+
+.progress-meta {
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    align-items: baseline;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.progress-meta .scene-count {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-right: 10px;
+}
+
+.progress-meta .completion-percentage {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: var(--border-light);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%; /* Controlled by JS */
+    background-color: var(--secondary-blue);
+    border-radius: 4px;
+    transition: width 0.5s ease-out;
+}
+
+/* --- Scenes List --- */
+.scenes-list {
+    margin-top: 20px;
+}
+
+.scene-card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    position: relative; /* For checkbox positioning */
+}
+
+.scene-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.scene-header-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Aligns items to the top if they have different heights */
+    margin-bottom: 10px;
+}
+
+.scene-header-line h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer; /* To indicate it's clickable */
+    flex-grow: 1; /* Allow it to take available space */
+    padding-right: 10px; /* Space for icon */
+    line-height: 1.2; /* Adjust line height for better alignment with checkbox */
+}
+
+.scene-header-line h3::after {
+    content: "\25BC"; /* Down arrow */
+    font-size: 0.7em;
+    margin-left: 10px;
+    vertical-align: middle;
+    transition: transform 0.2s ease;
+    color: var(--text-medium);
+}
+
+.scene-header-line h3.expanded::after {
+    content: "\25B2"; /* Up arrow */
+}
+
+.scene-meta {
+    display: flex;
+    align-items: center; /* Align shots count and checkbox vertically */
+    gap: 15px;
+    position: absolute; /* Take out of flow to prevent overlap */
+    top: 20px; /* Align with scene title */
+    right: 20px; /* Position to the right */
+}
+
+.scene-meta .shots-count {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    white-space: nowrap; /* Prevent wrapping */
+    margin-right: 5px; /* Space between count and checkbox */
+}
+
+/* Scene Checkbox */
+.scene-checkbox-wrapper {
+    /* Removed absolute positioning here as it's now part of scene-meta */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.scene-checkbox-wrapper input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    appearance: none; /* Hide default checkbox */
+    border: 2px solid var(--border-dark);
+    border-radius: 4px;
+    position: relative;
+    outline: none;
+    transition: all 0.2s ease;
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.scene-checkbox-wrapper input[type="checkbox"]:checked {
+    background-color: var(--success-green);
+    border-color: var(--success-green);
+}
+
+.scene-checkbox-wrapper input[type="checkbox"]:checked::after {
+    content: "\2713"; /* Checkmark symbol */
+    font-size: 16px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
+}
+
+.scene-checkbox-wrapper input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 3px rgba(52, 138, 240, 0.3);
+}
+
+.scene-description {
+    font-size: 1rem;
+    color: var(--text-medium);
+    margin-bottom: 15px;
+    margin-top: 5px; /* Adjust spacing */
+}
+
+.scene-actions-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 15px; /* Space between actions and shots list */
+    padding-bottom: 10px; /* Border to separate actions from shots */
+    border-bottom: 1px dashed var(--border-light);
+}
+
+.scene-actions-row .add-shot-btn,
+.scene-actions-row .edit-scene-btn,
+.scene-actions-row .delete-scene-btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    box-shadow: none; /* Remove default button shadow */
+}
+
+.scene-actions-row .add-shot-btn {
+    background-color: var(--secondary-blue);
+}
+.scene-actions-row .add-shot-btn:hover {
+    background-color: #5590d6;
+}
+
+.scene-actions-row .edit-scene-btn {
+    background-color: var(--warning-orange);
+}
+.scene-actions-row .edit-scene-btn:hover {
+    background-color: #d68910;
+}
+
+.scene-actions-row .delete-scene-btn {
+    background-color: var(--danger-red);
+}
+.scene-actions-row .delete-scene-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Shots List */
+.shots-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px dashed var(--border-light); /* Visually separate from scene info */
+    padding-top: 15px;
+    display: none; /* Hidden by default for collapsible behavior */
+}
+
+.shots-list.expanded {
+    display: block; /* Show when expanded */
+}
+
+.shot-item {
+    background-color: #fcfcfc;
+    border: 1px solid #f0f0f0;
+    border-radius: 6px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.shot-item h5 {
+    width: 100%;
+    margin: 0 0 10px 0;
+    color: var(--primary-blue);
+    font-size: 1.15rem;
+    font-weight: 600;
+    border-bottom: 1px dotted var(--border-light);
+    padding-bottom: 5px;
+}
+
+.shot-item-details {
+    flex-grow: 1;
+    margin-right: 15px;
+    min-width: 60%;
+}
+
+.shot-item-details strong {
+    color: var(--text-dark);
+}
+
+.shot-item-details p {
+    margin: 5px 0;
+    font-size: 0.88rem;
+    color: var(--text-medium);
+}
+
+.shot-item-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.shot-item-actions button {
+    padding: 6px 10px;
+    font-size: 0.8em;
+    min-width: 70px;
+    background-color: var(--secondary-blue); /* Default for shot buttons */
+    box-shadow: none;
+}
+.shot-item-actions button:hover {
+    background-color: #5590d6;
+}
+
+.shot-item-actions .edit-shot-btn {
+    background-color: var(--warning-orange);
+}
+.shot-item-actions .edit-shot-btn:hover {
+    background-color: #d68910;
+}
+
+.shot-item-actions .delete-shot-btn {
+    background-color: var(--danger-red);
+}
+.shot-item-actions .delete-shot-btn:hover {
+    background-color: var(--danger-red); /* Keep same color as hover for consistency */
+}
+
+.no-scenes-message,
+.no-shots-message {
+    font-style: italic;
+    color: var(--text-light);
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* --- Modals --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000; /* Higher z-index */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Allow modal itself to scroll if content is too big */
+    background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(3px); /* Glassmorphism effect */
+}
+
+.modal-content {
+    background-color: var(--bg-white);
+    padding: 25px; /* Slightly reduced padding */
+    border-radius: 12px; /* More rounded */
+    width: 90%;
+    max-width: 650px; /* Slightly wider modal */
+    position: relative;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+    animation: fadeIn 0.3s ease-out;
+
+    max-height: 90vh; /* Set max height to 90% of viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    box-sizing: border-box; /* Include padding in height calculation */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-button {
+    color: var(--text-light);
+    font-size: 32px;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--text-dark);
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-top: 0;
+    margin-bottom: 20px; /* Reduced margin */
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Forms within Modals */
+.form-group {
+    margin-bottom: 18px; /* Slightly reduced margin */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-dark);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: var(--font-dm-sans);
+    color: var(--text-dark);
+    background-color: var(--bg-white);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(52, 138, 240, 0.2);
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20255%20255%22%3E%3Cpolygon%20points%3D%220%2C0%20127.5%2C153%20255%2C0%22%20fill%3D%22%23666%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 10px;
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    display: flex; /* Use flex to align checkbox and text */
+    align-items: center;
+    margin-bottom: 8px; /* Slightly reduced margin */
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    flex-shrink: 0; /* Prevent checkbox from shrinking */
+    cursor: pointer;
+}
+
+/* Utility Class */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .app-header h1 {
+        font-size: 2rem;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .film-detail-header h2#filmDetailTitle {
+        font-size: 1.8rem;
+    }
+
+    .modal-content {
+        padding: 20px; /* Further reduce padding on small screens */
+        max-height: 95vh; /* Allow it to take more height on small screens */
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+    }
+
+    .film-chip {
+        padding: 8px 15px;
+        font-size: 1rem;
+    }
+
+    .scene-card {
+        padding: 15px;
+    }
+
+    .scene-header-line {
+        flex-direction: column; /* Stack elements on smaller screens */
+        align-items: flex-start;
+    }
+    .scene-header-line h3 {
+        font-size: 1.2rem;
+        margin-bottom: 5px; /* Add space below title when stacked */
+        padding-right: 0; /* No need for right padding when stacked */
+    }
+
+    /* Adjust scene-meta for smaller screens */
+    .scene-meta {
+        position: static; /* Revert to static positioning */
+        margin-top: 5px; /* Add some space below the title */
+        margin-left: 0; /* No left margin */
+        width: auto; /* Allow width to be determined by content */
+        display: flex;
+        justify-content: flex-end; /* Push to the right */
+        width: 100%; /* Take full width to push items right */
+    }
+
+    .scene-checkbox-wrapper {
+        margin-left: auto; /* Push checkbox to the right */
+    }
+
+    .scene-actions-row {
+        flex-direction: column; /* Stack action buttons */
+        gap: 8px;
+    }
+    .scene-actions-row button {
+        width: 100%; /* Full width for stacked buttons */
+    }
+    .shot-item-details {
+        min-width: 100%; /* Full width for details on small screens */
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    .shot-item-actions {
+        width: 100%; /* Full width for actions on small screens */
+        flex-direction: row; /* Keep action buttons in a row for shots */
+        justify-content: space-around;
+    }
+    .shot-item-actions button {
+        flex-grow: 1; /* Distribute space evenly */
+        min-width: unset; /* Remove min-width constraint */
+    }
+}
+
+/* style.css */
+
+/* Add this to your existing button styles */
+.secondary-button {
+    background-color: #6c757d; /* Gray for a secondary action */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+    margin-top: 15px; /* Space from other buttons/elements */
+}
+
+.secondary-button:hover {
+    background-color: #5a6268;
+}
+
+.reset-button {
+    /* You can add specific styles for reset if you want it to stand out more */
+    background-color: #dc3545; /* Red to signify a destructive action */
+}
+
+.reset-button:hover {
+    background-color: #c82333;
+}

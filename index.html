@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShotStack v1.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>ShotStack<span class="version-label">v1.0</span></h1>
+    </header>
+
+    <main class="container">
+        <section id="dashboard-view" class="view active-view">
+            <div class="dashboard-header">
+                <h2>YOUR FILMS</h2>
+                <div id="films-grid" class="film-chips-container">
+                </div>
+                <p id="noFilmsMessage" class="empty-state-message hidden">You have no films yet.</p>
+                <button id="createFilmBtn" class="primary-button create-button">+ Create Film</button>
+                <button id="resetDataBtn" class="secondary-button reset-button">Reset All Data</button>
+            </div>
+        </section>
+
+        <section id="film-detail-view" class="view hidden-view">
+            <div class="film-detail-header">
+                <div class="top-row">
+                    <button id="backToDashboardBtn" class="back-button"><i class="fas fa-chevron-left"></i> Film</button>
+                    <h2 id="filmDetailTitle"></h2> </div>
+                <div class="progress-section">
+                    <div class="progress-meta">
+                        <span id="sceneCountProgress" class="scene-count"></span>
+                        <span id="completionPercentage" class="completion-percentage"></span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div id="progressBar" class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenes-list" id="scenesListContainer">
+                <p id="noScenesMessage" class="empty-state-message hidden">You currently have no scenes for this film.</p>
+                <button id="addSceneBtn" class="primary-button add-scene-btn-film-level">+ Add Scene</button>
+            </div>
+        </section>
+
+        <div id="createFilmModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" data-modal="createFilmModal">&times;</span>
+                <h2 class="modal-title">Create New Film</h2>
+                <form id="createFilmForm">
+                    <div class="form-group">
+                        <label for="filmName">Film Title:</label>
+                        <input type="text" id="filmName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="filmDescription">Description:</label>
+                        <textarea id="filmDescription" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="primary-button">Add Film</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="addSceneModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" data-modal="addSceneModal">&times;</span>
+                <h2 class="modal-title">Add New Scene</h2>
+                <form id="addSceneForm">
+                    <div class="form-group">
+                        <label for="sceneNameInput">Scene Name:</label>
+                        <input type="text" id="sceneNameInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sceneDescriptionInput">Scene Description:</label>
+                        <textarea id="sceneDescriptionInput" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="primary-button">Add Scene</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="shotModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" data-modal="shotModal">&times;</span>
+                <h2 id="shotModalTitle" class="modal-title">Add New Shot</h2>
+                <form id="shotForm">
+                    <input type="hidden" id="editShotId">
+                    <input type="hidden" id="shotModalFilmId">
+                    <input type="hidden" id="shotModalSceneId">
+
+                    <div class="form-group">
+                        <label for="shotNameInput">Shot Name:</label>
+                        <input type="text" id="shotNameInput" placeholder="e.g., Shot 1, Close-up of Actor, etc.">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shotDescription">Shot Description:</label>
+                        <textarea id="shotDescription" rows="3" placeholder="Describe the content/context of the shot."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shotSize">Shot Size:</label>
+                        <select id="shotSize">
+                            <option value="">Select Shot Size</option>
+                            <option value="Extreme Wide Shot (EWS)">Extreme Wide Shot (EWS)</option>
+                            <option value="Wide Shot (WS)">Wide Shot (WS)</option>
+                            <option value="Full Shot (FS)">Full Shot (FS)</option>
+                            <option value="Medium Wide Shot (MWS)">Medium Wide Shot (MWS)</option>
+                            <option value="Medium Shot (MS)">Medium Shot (MS)</option>
+                            <option value="Medium Close-Up (MCU)">Medium Close-Up (MCU)</option>
+                            <option value="Close-Up (CU)">Close-Up (CU)</option>
+                            <option value="Extreme Close-Up (ECU)">Extreme Close-Up (ECU)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shotType">Shot Type:</label>
+                        <select id="shotType">
+                            <option value="">Select Shot Type</option>
+                            <option value="Eye Level">Eye Level</option>
+                            <option value="High Angle">High Angle</option>
+                            <option value="Low Angle">Low Angle</option>
+                            <option value="Overhead (Bird’s Eye View)">Overhead (Bird’s Eye View)</option>
+                            <option value="Over-the-Shoulder (OTS)">Over-the-Shoulder (OTS)</option>
+                            <option value="Point of View (POV)">Point of View (POV)</option>
+                            <option value="Shoulder Level">Shoulder Level</option>
+                            <option value="Hip Level">Hip Level</option>
+                            <option value="Knee Level">Knee Level</option>
+                            <option value="Ground Level">Ground Level</option>
+                            <option value="Dutch Angle (Tilted)">Dutch Angle (Tilted)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cameraMovement">Main Camera Movements:</label>
+                        <select id="cameraMovement">
+                            <option value="">Select Camera Movement</option>
+                            <option value="Static (No Movement)">Static (No Movement)</option>
+                            <option value="Pan">Pan</option>
+                            <option value="Tilt">Tilt</option>
+                            <option value="Zoom">Zoom</option>
+                            <option value="Dolly">Dolly</option>
+                            <option value="Truck">Truck</option>
+                            <option value="Pedestal">Pedestal</option>
+                            <option value="Tracking">Tracking</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="equipment">Equipment:</label>
+                        <select id="equipment">
+                            <option value="">Select Equipment</option>
+                            <option value="Tripod">Tripod</option>
+                            <option value="Handheld">Handheld</option>
+                            <option value="Gimbal">Gimbal</option>
+                            <option value="Steadicam">Steadicam</option>
+                            <option value="Dolly">Dolly</option>
+                            <option value="Crane">Crane</option>
+                            <option value="Jib">Jib</option>
+                            <option value="Drone">Drone</option>
+                            <option value="Car Mount">Car Mount</option>
+                            <option value="Shoulder Rig">Shoulder Rig</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lens">Lens:</label>
+                        <select id="lens">
+                            <option value="">Select Lens</option>
+                            <option value="14mm">14mm</option>
+                            <option value="24mm">24mm</option>
+                            <option value="28mm">28mm</option>
+                            <option value="35mm">35mm</option>
+                            <option value="50mm">50mm</option>
+                            <option value="85mm">85mm</option>
+                            <option value="100mm">100mm</option>
+                            <option value="135mm">135mm</option>
+                            <option value="200mm">200mm</option>
+                            <option value="Anamorphic">Anamorphic</option>
+                            <option value="Macro">Macro</option>
+                            <option value="Zoom Lens">Zoom Lens</option>
+                            <option value="Custom">Custom Lens (Enter below)</option>
+                        </select>
+                        <input type="text" id="customLens" placeholder="Enter custom lens (e.g., Angenieux HR)" class="hidden">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Lighting (Select As Many Apply):</label>
+                        <div class="checkbox-group" id="lightingOptions">
+                            <label><input type="checkbox" value="Natural Light"> Natural Light</label>
+                            <label><input type="checkbox" value="Key Light"> Key Light</label>
+                            <label><input type="checkbox" value="Fill Light"> Fill Light</label>
+                            <label><input type="checkbox" value="Backlight"> Backlight</label>
+                            <label><input type="checkbox" value="Practical Light"> Practical Light</label>
+                            <label><input type="checkbox" value="Soft-Box"> Soft-Box</label>
+                            <label><input type="checkbox" value="LED Panel"> LED Panel</label>
+                            <label><input type="checkbox" value="Fresnel Light"> Fresnel Light</label>
+                            <label><input type="checkbox" value="HMI"> HMI</label>
+                            <label><input type="checkbox" value="Tungsten"> Tungsten</label>
+                            <label><input type="checkbox" value="Fluorescent"> Fluorescent</label>
+                            <label><input type="checkbox" value="Bounce Light"> Bounce Light</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="depthOfField">Depth of Field:</label>
+                        <select id="depthOfField">
+                            <option value="">Select Depth of Field</option>
+                            <option value="Shallow (Blurred Background)">Shallow (Blurred Background)</option>
+                            <option value="Deep (Everything in Focus)">Deep (Everything in Focus)</option>
+                            <option value="Selective Focus">Selective Focus</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="frameRate">Frame Rate:</label>
+                        <select id="frameRate">
+                            <option value="">Select Frame Rate</option>
+                            <option value="24 FPS (Cinema Standard)">24 FPS (Cinema Standard)</option>
+                            <option value="30 FPS">30 FPS</option>
+                            <option value="60 FPS (Smooth Motion)">60 FPS (Smooth Motion)</option>
+                            <option value="120 FPS (Slow Motion)">120 FPS (Slow Motion)</option>
+                            <option value="240 FPS (Ultra Slow Motion)">240 FPS (Ultra Slow Motion)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="aspectRatio">Aspect Ratio:</label>
+                        <select id="aspectRatio">
+                            <option value="">Select Aspect Ratio</option>
+                            <option value="16:9 (Standard)">16:9 (Standard)</option>
+                            <option value="2.39:1 (Cinematic Scope)">2.39:1 (Cinematic Scope)</option>
+                            <option value="1.85:1 (Widescreen)">1.85:1 (Widescreen)</option>
+                            <option value="4:3 (Classic)">4:3 (Classic)</option>
+                            <option value="1:1 (Square)">1:1 (Square)</option>
+                            <option value="9:16 (Vertical)">9:16 (Vertical)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="saveShotBtn" class="primary-button">Add Shot</button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
